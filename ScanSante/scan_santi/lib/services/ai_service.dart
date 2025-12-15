@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class AIService {
   // 1. Get your FREE key from: https://console.groq.com/keys
   final String _apiKey =
-      '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';
+      '';
 
   // 2. Groq API Endpoint
   final String _url = 'https://api.groq.com/openai/v1/chat/completions';
