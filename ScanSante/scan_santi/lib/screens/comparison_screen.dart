@@ -6,7 +6,8 @@ import 'package:scan_santi/utilities/utils.dart';
 class ComparisonScreen extends StatelessWidget {
   final FoodAnalysisModel product1;
   final FoodAnalysisModel product2;
-  MaterialColor get screenColor => Utils.color(product2);
+  // MaterialColor get screenColor1 => Utils.color(product1);
+  // MaterialColor get screenColor2 => Utils.color(product2);
 
   const ComparisonScreen({
     super.key,
@@ -45,7 +46,7 @@ class ComparisonScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 5),
-            color: screenColor,
+            color: Utils.color(item),
             child: Column(
               children: [
                 Text(
@@ -100,7 +101,7 @@ class ComparisonScreen extends StatelessWidget {
                 sections: [
                   // The Score Part (Colored)
                   PieChartSectionData(
-                    color: screenColor,
+                    color: Utils.color(item),
                     value: item.healthScore.toDouble(),
                     title: '',
                     radius: 20,
@@ -139,7 +140,7 @@ class ComparisonScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.circle, size: 12, color: screenColor),
+              Icon(Icons.circle, size: 12, color: Utils.color(item)),
               const SizedBox(width: 5),
               Text(
                 "Sugar : ${item.macros['carbs']?['sugar']}g",
@@ -169,7 +170,10 @@ class ComparisonScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 // Gradient Green Box
                 gradient: LinearGradient(
-                  colors: [screenColor.withOpacity(0.8), screenColor],
+                  colors: [
+                    Utils.color(item).withOpacity(0.8),
+                    Utils.color(item),
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),

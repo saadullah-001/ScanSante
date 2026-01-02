@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class AIService {
   // 1. Get your FREE key from: https://console.groq.com/keys
   final String _apiKey =
-      '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';
+      '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';
 
   // 2. Groq API Endpoint
   final String _url = 'https://api.groq.com/openai/v1/chat/completions';
@@ -65,11 +65,17 @@ class AIService {
                   ]
                 }
                 
-                RULES:
+                RULES FOR ANALYSIS:
                 1. User Condition: "$userCondition"
-                2. ESTIMATE values if not explicit in text. 
-                3. If 'Diabetes', penalize Sugar/Starch. 
-                4. If 'Vegan', ensure 'animal' protein is 0, otherwise estimate based on ingredients (e.g. Chicken = animal).
+                
+                2. *** STRICT CONDITION CHECK (CRITICAL) ***:
+                   - If the food contradicts "$userCondition", you MUST set "health_score" to BELOW 40 and "summary_verdict" to "Avoid".
+                   - Example: If User is "Diabetic" and food has Sugar > 5g, Score MUST be < 40 (Red).
+                   - Example: If User is "Hypertensive" and food has High Sodium, Score MUST be < 40 (Red).
+                   - Do this even if the food is healthy for a normal person (like Fruit or Dark Chocolate).
+                   
+                3. ESTIMATE values if not explicit in text. 
+                4. If 'Vegan', ensure 'animal' protein is 0.
               ''',
             },
             {"role": "user", "content": "Analyze this text: $ocrText"},
